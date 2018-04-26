@@ -111,16 +111,11 @@ class formController extends Controller
            $db->setProfession($form['profession']->getData());
 
 
-           dump($country);
-
-
-           // ... perform some action, such as saving the task to the database
-           // for example, if Task is a Doctrine entity, save it!
            $entityManager = $this->getDoctrine()->getManager();
            $entityManager->persist($db);
           $entityManager->flush();
 
-           // ... perform some action, such as saving the data to the database
+
 
           return $this->redirectToRoute('show');
 

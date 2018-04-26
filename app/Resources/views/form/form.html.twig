@@ -5,23 +5,20 @@
 {% endblock %}
 
 {% block body %}
-    {{ dump(form) }}
-    <div class="card text-white bg-info mb-3 mt-5" >
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="card mb-3 mt-5 col-md-6 p-0" >
         <div class="card-header">Formularz zgłoszeniowy</div>
         <div class="card-body">
 
             <p class="card-text">
-            <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
                     {{ form_start(form) }}
                     {{ form_widget(form) }}
                     {{ form_end(form) }}
                     <div id="slider-range-max"></div>
-                </div>
             </div>
             </p>
         </div>
     </div>
-
+</div>
 {% endblock %}
