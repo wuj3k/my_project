@@ -8,7 +8,7 @@
 
 namespace AppBundle\Controller;
 
-
+use Symfony\Component\Intl\Intl;
 use AppBundle\Entity\Form;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -18,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Intl\Locale;
 use Symfony\Component\Routing\Annotation;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -98,20 +99,46 @@ class formController extends Controller
        $form->handleRequest($request);
 
        if ($form->isSubmitted() && $form->isValid()) {
-           // $form->getData() holds the submitted values
-           // but, the original `$task` variable has also been updated
-           $task = $form->getData();
+
+           $country = Intl::getRegionBundle()->getCountryName($form['country']->getData());
+
+           $db->setName($form['name']->getData());
+           $db->setSurname($form['surname']->getData());
+           $db->setCity($form['city']->getData());
+           $db->setExperience($form['experience']->getData());
+           $db->setTime(implode(",",$form['time']->getData()));
+           $db->setCountry($country);
+           $db->setProfession($form['profession']->getData());
+
+
+           dump($country);
+
 
            // ... perform some action, such as saving the task to the database
            // for example, if Task is a Doctrine entity, save it!
-           // $entityManager = $this->getDoctrine()->getManager();
-           // $entityManager->persist($task);
-           // $entityManager->flush();
+           $entityManager = $this->getDoctrine()->getManager();
+           $entityManager->persist($db);
+          $entityManager->flush();
 
-           return new Response($task);
+           // ... perform some action, such as saving the data to the database
+
+          return $this->redirectToRoute('show');
+
        }
 
        return $this->render('form/form.html.twig', array(
            'form' => $form->createView()));
+    }
+
+    /**
+     * @Annotation\Route("/show" , name="show")
+     */
+    public function showAction(){
+
+        $users = $this->getDoctrine()
+            ->getRepository(Form::class)
+            ->findAll();
+
+       return $this->render('form/show.html.twig', array( 'users' => $users));
     }
 }

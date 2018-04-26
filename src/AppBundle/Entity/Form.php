@@ -25,6 +25,15 @@ class Form
     /**
      * @var string
      * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 50,
+     *
+     * )
+     * @Assert\Regex(
+     *     pattern="/^[a-ząśżźćęółń]+\s*[a-ząśżźćęółń]+(?:\s*-\s*)?[a-ząśżźćęółń]+$/i",
+     *     message="Imie musi składać się tylko z liter"
+     * )
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
@@ -33,6 +42,15 @@ class Form
      * @var string
      *
      * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 50,
+     *
+     * )
+     * @Assert\Regex(
+     *     pattern="/^[a-z]$/",
+     *     message="Nazwisko musi składać się tylko z liter"
+     * )
      *
      * @ORM\Column(name="surname", type="string", length=255)
      */
@@ -40,7 +58,10 @@ class Form
 
     /**
      * @var int
-     *
+     *  @Assert\Range(
+     *      min = 1,
+     *      max = 10
+     * )
      * @ORM\Column(name="experience", type="integer")
      */
     private $experience;
@@ -53,11 +74,11 @@ class Form
      *      max = 50,
      *
      * )
-     * @Assert\Regex(
-     *     pattern="/^[a-zA-Z]/",
-     *
-     *     message="Miasto musi składać się tylko z liter"
+    @Assert\Type(
+     *     type="alpha",
+     *     message="Miasto musi składać się wyłącznie z liter"
      * )
+     *
      * @ORM\Column(name="city", type="string", length=255)
      */
     private $city;
@@ -80,7 +101,7 @@ class Form
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="profession", type="string", length=255)
      */
     private $profession;

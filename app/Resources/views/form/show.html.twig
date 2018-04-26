@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Baza danych
+{% endblock %}
+
+{% block body %}
+    <table class="table  table-striped mt-5">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Imię</th>
+        <th scope="col">Nazwisko</th>
+        <th scope="col">Miasto</th>
+        <th scope="col">Kraj</th>
+        <th scope="col">Doświadczenie</th>
+        <th scope="col">Dyspozycyjność</th>
+        <th scope="col">Profesja</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+            <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <td>{{ user.name }}</td>
+                <td>{{ user.surname }}</td>
+                <td>{{ user.city }}</td>
+                <td>{{ user.country }}</td>
+                <td> {{ user.experience }} Lat</td>
+                <td>{{ user.time }}</td>
+                <td> {{ user.profession }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+
+    <a href="{{ path('home') }}" class="btn btn-success">Powrót do formularza</a>
+{% endblock %}
