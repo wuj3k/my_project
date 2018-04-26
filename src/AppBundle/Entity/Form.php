@@ -31,7 +31,7 @@ class Form
      *
      * )
      * @Assert\Regex(
-     *     pattern="/^[a-ząśżźćęółń]+\s*[a-ząśżźćęółń]+(?:\s*-\s*)?[a-ząśżźćęółń]+$/i",
+     *     pattern="/^[a-ząśżźćęółńĄŚŹŻĆĘŁÓŃ]+$/i",
      *     message="Imie musi składać się tylko z liter"
      * )
      * @ORM\Column(name="name", type="string", length=255)
@@ -48,8 +48,8 @@ class Form
      *
      * )
      * @Assert\Regex(
-     *     pattern="/^[a-z]$/",
-     *     message="Nazwisko musi składać się tylko z liter"
+     *     pattern="/^[a-ząśżźćęółńĄŚŹŻĆĘŁÓŃ]+(?:\s*-\s*)?[a-ząśżźćęółńĄŚŹŻĆĘŁÓŃ]+$/i",
+     *     message="Nazwisko musi składać się tylko z liter, nazwisko dwu członowe musi zawierać -"
      * )
      *
      * @ORM\Column(name="surname", type="string", length=255)
@@ -74,9 +74,9 @@ class Form
      *      max = 50,
      *
      * )
-    @Assert\Type(
-     *     type="alpha",
-     *     message="Miasto musi składać się wyłącznie z liter"
+     *   @Assert\Regex(
+     *     pattern="/^[a-ząśżźćęółńĄŚŹŻĆĘŁÓŃ]+\s*[a-ząśżźćęółńĄŚŹŻĆĘŁÓŃ]+$/i",
+     *     message="Nazwisko musi składać się tylko z liter"
      * )
      *
      * @ORM\Column(name="city", type="string", length=255)
