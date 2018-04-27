@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block body %}
-    <table class="table rounded table-striped mt-5">
-    <thead>
+    <table class="table rounded border-warning table-hover mt-5">
+    <thead class="text-danger">
     <tr>
         <th scope="col">#</th>
         <th scope="col">Imię</th>
@@ -18,10 +18,10 @@
         <th scope="col">Profesja</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody class="text-success">
     {% for user in users %}
             <tr>
-                <th scope="row">{{ loop.index }}</th>
+                <th scope="row" class="text-warning">{{ loop.index }}</th>
                 <td>{{ user.name }}</td>
                 <td>{{ user.surname }}</td>
                 <td>{{ user.city }}</td>

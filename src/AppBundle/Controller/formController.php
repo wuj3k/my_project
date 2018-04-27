@@ -18,10 +18,11 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Intl\Locale;
+use Symfony\Component\Intl\Locale\Locale;
 use Symfony\Component\Routing\Annotation;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\NotBlank;
+
 
 class formController extends Controller
 {
@@ -30,7 +31,7 @@ class formController extends Controller
      */
    public function formAction(Request $request)
    {
-
+      // Locale::setDefault('pl');
        $db = new Form();
        $form = $this->createFormBuilder($db)
            ->add('name', TextType::class , array(
@@ -92,7 +93,7 @@ class formController extends Controller
                )
                ))
            ->add('save',SubmitType::class, array(
-               'attr' => array ('class' => 'btn btn-primary'),
+               'attr' => array ('class' => 'btn btn-success'),
                'label' => 'Zapisz'))
            ->getForm();
 
@@ -102,9 +103,9 @@ class formController extends Controller
 
            $country = Intl::getRegionBundle()->getCountryName($form['country']->getData());
 
-           $db->setName($form['name']->getData());
-           $db->setSurname($form['surname']->getData());
-           $db->setCity($form['city']->getData());
+           $db->setName(ucwords(mb_strtolower($form['name']->getData())));
+           $db->setSurname(ucwords(mb_strtolower($form['surname']->getData())));
+           $db->setCity(ucwords(mb_strtolower($form['city']->getData())));
            $db->setExperience($form['experience']->getData());
            $db->setTime(implode(",",$form['time']->getData()));
            $db->setCountry($country);

@@ -4,3 +4,11 @@ body{
 .table{
     background-color: white;
 }
+
+.form-error-message{
+    letter-spacing: 3px;
+}
+
+label{
+    color:#B58900;
+}
